@@ -1,5 +1,4 @@
-name: Build Image
-
+name: Run Docker Compose
 on:
   pull_request:
     branches: [ "main" ]
