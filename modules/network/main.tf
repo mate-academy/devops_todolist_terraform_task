@@ -5,28 +5,28 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_subnet" "default" {
+resource "azurerm_subnet" "subnet" {
   name                 = var.subnet_name
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = [var.subnet_address_prefix]
 }
 
-resource "azurerm_network_security_group" "defaultnsg" {
+resource "azurerm_network_security_group" "nsg" {
   name                = var.network_security_group_name
   location            = var.location
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_public_ip" "linuxboxpip" {
+resource "azurerm_public_ip" "public_ip" {
   name                = var.public_ip_address_name
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
-  domain_name_label   = "${var.dns_label}${random_integer.random.result}"
+  domain_name_label   = "${var.dns_label}${random_integer.ri.result}"
 }
 
-resource "random_integer" "random" {
+resource "random_integer" "ri" {
   min = 10000
   max = 99999
 }

@@ -14,14 +14,6 @@ output "network_security_group_id" {
   value = module.network.network_security_group_id
 }
 
-output "compute_vm_id" {
-  value = module.compute.vm_id
-}
-
-output "compute_nic_id" {
-  value = module.compute.nic_id
-}
-
 output "storage_account_name" {
   value = module.storage.storage_account_name
 }

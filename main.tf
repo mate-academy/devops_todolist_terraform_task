@@ -45,6 +45,7 @@ module "compute" {
   admin_username       = var.admin_username
   subnet_id            = module.network.subnet_id
   public_ip_address_id = module.network.public_ip_address_id
+  public_ip_address    = module.network.public_ip_address
   tags                 = var.tags
 }
 
@@ -53,4 +54,3 @@ module "storage" {
   location            = var.location
   resource_group_name = var.resource_group_name
 }
-

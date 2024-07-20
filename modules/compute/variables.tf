@@ -43,6 +43,11 @@ variable "public_ip_address_id" {
   type        = string
 }
 
+variable "public_ip_address" {
+  description = "The public IP address"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags for the resources"
   type        = map(string)

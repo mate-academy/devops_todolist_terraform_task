@@ -11,13 +11,6 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-resource "azurerm_public_ip" "vm_ip" {
-  name                = "${var.vm_name}-public-ip"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  allocation_method   = "Dynamic"
-}
-
 resource "azurerm_virtual_machine" "vm" {
   name                  = var.vm_name
   location              = var.location
@@ -62,7 +55,7 @@ resource "azurerm_virtual_machine" "vm" {
       type        = "ssh"
       user        = var.admin_username
       private_key = file(var.ssh_key_private)
-      host        = azurerm_public_ip.vm_ip.ip_address
+      host        = var.public_ip_address
     }
   }
 
@@ -76,7 +69,7 @@ resource "azurerm_virtual_machine" "vm" {
       type        = "ssh"
       user        = var.admin_username
       private_key = file(var.ssh_key_private)
-      host        = azurerm_public_ip.vm_ip.ip_address
+      host        = var.public_ip_address
     }
   }
 }
