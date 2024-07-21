@@ -11,65 +11,47 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-resource "azurerm_virtual_machine" "vm" {
-  name                  = var.vm_name
-  location              = var.location
-  resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  vm_size               = var.vm_size
+resource "azurerm_linux_virtual_machine" "vm" {
+  name                = var.vm_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  size                = var.vm_size
+  admin_username      = "azureuser"
+  network_interface_ids = [
+    azurerm_network_interface.nic.id,
+  ]
 
-  os_profile {
-    computer_name  = var.vm_name
-    admin_username = var.admin_username
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 
-  os_profile_linux_config {
-    disable_password_authentication = true
-    ssh_keys {
-      path     = "/home/${var.admin_username}/.ssh/authorized_keys"
-      key_data = var.ssh_key_public
-    }
-  }
-
-  storage_os_disk {
-    name              = "${var.vm_name}_osdisk"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "22_04-lts"
     version   = "latest"
   }
 
-  tags = var.tags
-
-  provisioner "file" {
-    source      = "C:/Users/ipppk/devops_todolist_terraform_task/install-app.sh"
-    destination = "/home/${var.admin_username}/install-app.sh"
-
-    connection {
-      type        = "ssh"
-      user        = var.admin_username
-      private_key = file(var.ssh_key_private)
-      host        = var.public_ip_address
-    }
+  admin_ssh_key {
+    username   = "azureuser"
+    public_key = var.ssh_key_public
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /home/${var.admin_username}/install-app.sh",
-      "bash /home/${var.admin_username}/install-app.sh"
-    ]
+  custom_data = filebase64("${path.module}/install-app.sh")
+}
 
-    connection {
-      type        = "ssh"
-      user        = var.admin_username
-      private_key = file(var.ssh_key_private)
-      host        = var.public_ip_address
+resource "azurerm_virtual_machine_extension" "vm_extension" {
+  name                 = "install"
+  virtual_machine_id   = azurerm_linux_virtual_machine.vm.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.1"
+
+  settings = <<SETTINGS
+    {
+        "fileUris": ["${path.module}/install-app.sh"],
+        "commandToExecute": "./install-app.sh"
     }
-  }
+  SETTINGS
 }

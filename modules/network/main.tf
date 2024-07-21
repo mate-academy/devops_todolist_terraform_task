@@ -18,15 +18,18 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
 }
 
-resource "azurerm_public_ip" "public_ip" {
+resource "azurerm_public_ip" "pip" {
   name                = var.public_ip_address_name
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
-  domain_name_label   = "${var.dns_label}${random_integer.ri.result}"
+  domain_name_label   = "${var.dns_label}-${random_id.random.hex}"
 }
 
-resource "random_integer" "ri" {
-  min = 10000
-  max = 99999
+resource "random_id" "random" {
+  keepers = {
+    id = var.dns_label
+  }
+
+  byte_length = 4
 }
