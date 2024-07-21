@@ -1,47 +1,64 @@
 variable "location" {
-  default = "uksouth"
+  description = "The location where resources will be deployed"
+  type        = string
 }
 
 variable "resource_group_name" {
-  default = "mate-azure-task-12"
+  description = "The name of the resource group"
+  type        = string
 }
 
 variable "virtual_network_name" {
-  default = "vnet"
+  description = "The name of the virtual network"
+  type        = string
 }
 
 variable "vnet_address_prefix" {
-  default = "10.0.0.0/16"
+  description = "The address prefix for the virtual network"
+  type        = string
 }
 
 variable "subnet_name" {
-  default = "default"
+  description = "The name of the subnet"
+  type        = string
 }
 
 variable "subnet_address_prefix" {
-  default = "10.0.0.0/24"
+  description = "The address prefix for the subnet"
+  type        = string
 }
 
 variable "network_security_group_name" {
-  default = "defaultnsg"
+  description = "The name of the network security group"
+  type        = string
 }
 
 variable "public_ip_address_name" {
-  default = "linuxboxpip"
-}
-
-variable "vm_name" {
-  default = "matebox"
-}
-
-variable "vm_size" {
-  default = "Standard_B1s"
-}
-
-variable "ssh_key_public" {
-  default = "your-public-key-content"
+  description = "The name of the public IP address"
+  type        = string
 }
 
 variable "dns_label" {
-  default = "matetask"
+  description = "The DNS label for the public IP address"
+  type        = string
+}
+
+variable "vm_name" {
+  description = "The name of the virtual machine"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "The size of the virtual machine"
+  type        = string
+}
+
+variable "ssh_key_public" {
+  description = "The public SSH key for the virtual machine"
+  type        = string
+}
+
+variable "extension_name" {
+  description = "The name of the VM extension"
+  type        = string
 }

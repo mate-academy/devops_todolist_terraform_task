@@ -41,17 +41,17 @@ resource "azurerm_linux_virtual_machine" "vm" {
   custom_data = filebase64("${path.root}/install-app.sh")
 }
 
-resource "azurerm_virtual_machine_extension" "vm_extension" {
-  name                 = "install"
+resource "azurerm_virtual_machine_extension" "custom_script" {
+  name                 = var.extension_name
   virtual_machine_id   = azurerm_linux_virtual_machine.vm.id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
-  type_handler_version = "2.1"
+  type_handler_version = "2.0"
 
   settings = <<SETTINGS
     {
-        "fileUris": ["${path.root}/install-app.sh"],
-        "commandToExecute": "./install-app.sh"
+      "fileUris": ["${var.blob_url}"],
+      "commandToExecute": "bash install-app.sh"
     }
-  SETTINGS
+SETTINGS
 }

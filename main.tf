@@ -7,20 +7,6 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
-resource "azurerm_storage_account" "storage" {
-  name                     = "storageippk"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-resource "azurerm_storage_container" "tfstate" {
-  name                  = "tfstate"
-  storage_account_name  = azurerm_storage_account.storage.name
-  container_access_type = "private"
-}
-
 module "network" {
   source                      = "./modules/network"
   location                    = var.location
@@ -43,10 +29,18 @@ module "compute" {
   ssh_key_public       = var.ssh_key_public
   subnet_id            = module.network.subnet_id
   public_ip_address_id = module.network.pip_id
+  blob_url             = module.storage.blob_url
+  extension_name       = var.extension_name
 }
 
 module "storage" {
   source              = "./modules/storage"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
+  container_name      = "task-artifacts"
+  source_file_path    = "C:\\Users\\ipppk\\devops_todolist_terraform_task\\install-app.sh"
+}
+
+output "blob_url" {
+  value = module.storage.blob_url
 }

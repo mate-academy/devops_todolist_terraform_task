@@ -7,7 +7,19 @@ resource "azurerm_storage_account" "storage" {
 }
 
 resource "azurerm_storage_container" "container" {
-  name                  = "task-artifacts"
+  name                  = var.container_name
   storage_account_name  = azurerm_storage_account.storage.name
   container_access_type = "private"
+}
+
+resource "azurerm_storage_blob" "todoapp_blob" {
+  name                   = "${var.container_name}_blob"
+  storage_account_name   = azurerm_storage_account.storage.name
+  storage_container_name = azurerm_storage_container.container.name
+  type                   = "Block"
+  source                 = var.source_file_path
+}
+
+output "blob_url" {
+  value = azurerm_storage_blob.todoapp_blob.url
 }
