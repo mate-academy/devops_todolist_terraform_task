@@ -29,7 +29,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "22_04-lts"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
 
@@ -38,7 +38,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     public_key = var.ssh_key_public
   }
 
-  custom_data = filebase64("${path.module}/install-app.sh")
+  custom_data = filebase64("${path.root}/install-app.sh")
 }
 
 resource "azurerm_virtual_machine_extension" "vm_extension" {
@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine_extension" "vm_extension" {
 
   settings = <<SETTINGS
     {
-        "fileUris": ["${path.module}/install-app.sh"],
+        "fileUris": ["${path.root}/install-app.sh"],
         "commandToExecute": "./install-app.sh"
     }
   SETTINGS
