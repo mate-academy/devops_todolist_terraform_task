@@ -39,7 +39,7 @@ module "network" {
 module "compute" {
   source               = "./modules/compute"
   location             = var.location
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = var.resource_group_name
   vm_name              = var.vm_name
   vm_size              = var.vm_size
   ssh_key_public       = var.ssh_key_public
@@ -52,7 +52,7 @@ module "compute" {
 module "storage" {
   source              = "./modules/storage"
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = var.resource_group_name
   container_name      = "task-artifacts"
   source_file_path    = "C:\\Users\\ipppk\\devops_todolist_terraform_task\\install-app.sh"
 }
