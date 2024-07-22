@@ -75,3 +75,9 @@ variable "extension_name" {
   type        = string
   default     = "install_script"
 }
+
+variable "ssh_private_key" {
+  description = "The private SSH key for the virtual machine"
+  type        = string
+  sensitive   = true
+}

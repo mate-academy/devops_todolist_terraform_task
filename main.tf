@@ -72,7 +72,7 @@ resource "null_resource" "clone_git_repo" {
     connection {
       type        = "ssh"
       user        = "azureuser"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.ssh_private_key
       host        = module.network.public_ip_address
     }
   }
@@ -84,4 +84,3 @@ output "vm_ip" {
   description = "The public IP address of the virtual machine"
   value       = module.network.public_ip_address
 }
-
