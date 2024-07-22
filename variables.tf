@@ -1,56 +1,51 @@
-variable "resource_group_name" {
-  description = "The name of the resource group"
+variable "location" {
+  default = "uksouth"
 }
 
-variable "location" {
-  description = "The Azure region to deploy resources into"
+variable "resource_group_name" {
+  default = "mate-azure-task-12"
 }
 
 variable "virtual_network_name" {
-  description = "The name of the virtual network"
+  default = "vnet"
 }
 
 variable "vnet_address_prefix" {
-  description = "The address prefix for the virtual network"
+  default = "10.0.0.0/16"
 }
 
 variable "subnet_name" {
-  description = "The name of the subnet"
+  default = "default"
 }
 
 variable "subnet_address_prefix" {
-  description = "The address prefix for the subnet"
+  default = "10.0.0.0/24"
 }
 
 variable "network_security_group_name" {
-  description = "The name of the network security group"
+  default = "defaultnsg"
 }
 
 variable "public_ip_address_name" {
-  description = "The name of the public IP address"
-}
-
-variable "dns_label" {
-  description = "The DNS label for the public IP address"
+  default = "linuxboxpip"
 }
 
 variable "vm_name" {
-  description = "The name of the virtual machine"
+  default = "matebox"
 }
 
 variable "vm_size" {
-  description = "The size of the virtual machine"
+  default = "Standard_B1s"
 }
 
 variable "ssh_key_public" {
-  description = "The public SSH key"
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDb4Yoa3tEpy92WT0u963xnKfE5j1gbBwmFnNWAGIwIQacyXCnBIhUOM+IWO2NnF7Qf9c0uby6+ymgXms7G/sQRMNBFPP10+qZ6ZFXpjT/JPnfxalMeRahhCQXWGXj1jiyZWcF4LE5As1burd5korO8CmprbkhjYqJhmj5ONpk7ldZeKDS3Q8gYZ6+M1tqcY1rVQ3fKuvDXs8JMCLWeHSm+xi8qsqt5kjs18y5lpZPDDwbcjbMKUgsJHqasz5bgnnT9YBc+HzcI/B6DjbX2LgMHDPIVG5UyxdWFjRsVdtkRjfYMNBI2efJWUDCWhdMQ7/mUdfF+QKprD3ssBASVWd9/ ipppk@LAPTOP"
+}
+
+variable "dns_label" {
+  default = "matetask"
 }
 
 variable "extension_name" {
-  description = "The name of the VM extension"
-}
-
-variable "git_repo_url" {
-  description = "The URL of the Git repository"
-  default     = "https://github.com/ILyakhova/devops_todolist_terraform_task.git"
+  default = "install_script"
 }

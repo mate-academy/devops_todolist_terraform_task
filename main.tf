@@ -5,8 +5,8 @@ provider "azurerm" {
 provider "null" {}
 
 resource "azurerm_resource_group" "rg" {
-  name     = "mate-azure-task-12"
-  location = "East US"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 resource "azurerm_storage_account" "storage" {
