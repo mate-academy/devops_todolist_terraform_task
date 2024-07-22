@@ -26,8 +26,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   os_disk {
-    name              = "${var.vm_name}-osdisk"
-    caching           = "ReadWrite"
+    name                 = "${var.vm_name}-osdisk"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
