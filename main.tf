@@ -57,9 +57,6 @@ module "storage" {
   source_file_path    = "C:\\Users\\ipppk\\devops_todolist_terraform_task\\install-app.sh"
 }
 
-output "blob_url" {
-  value = module.storage.blob_url
-}
 
 resource "null_resource" "clone_git_repo" {
   provisioner "remote-exec" {
@@ -78,9 +75,4 @@ resource "null_resource" "clone_git_repo" {
   }
 
   depends_on = [module.compute]
-}
-
-output "vm_ip" {
-  description = "The public IP address of the virtual machine"
-  value       = module.network.public_ip_address
 }
