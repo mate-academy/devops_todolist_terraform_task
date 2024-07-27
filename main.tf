@@ -20,7 +20,7 @@ resource "azurerm_storage_account" "storage" {
 resource "azurerm_storage_container" "tfstate" {
   name                  = "tfstate"
   storage_account_name  = azurerm_storage_account.storage.name
-  container_access_type = "private"
+  container_access_type = "container"
 }
 
 module "network" {
@@ -58,21 +58,21 @@ module "storage" {
 }
 
 
-resource "null_resource" "clone_git_repo" {
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y git",
-      "git clone https://github.com/ILyakhova/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task"
-    ]
+# resource "null_resource" "clone_git_repo" {
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo apt-get update",
+#       "sudo apt-get install -y git",
+#       "git clone https://github.com/ILyakhova/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task"
+#     ]
 
-    connection {
-      type        = "ssh"
-      user        = "azureuser"
-      private_key = var.ssh_private_key
-      host        = module.network.public_ip_address
-    }
-  }
+#     connection {
+#       type        = "ssh"
+#       user        = "azureuser"
+#       private_key = var.ssh_private_key
+#       host        = module.network.public_ip_address
+#     }
+#   }
 
-  depends_on = [module.compute]
-}
+#   depends_on = [module.compute]
+# }

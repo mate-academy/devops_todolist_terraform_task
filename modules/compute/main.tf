@@ -53,6 +53,7 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
   settings = <<SETTINGS
     {
         "fileUris": ["https://raw.githubusercontent.com/ILyakhova/devops_todolist_terraform_task/main/install-app.sh"],
+        "commandToExecute": "bash chmod +x install-app.sh",
         "commandToExecute": "bash install-app.sh"
     }
 SETTINGS
