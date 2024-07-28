@@ -1,19 +1,19 @@
 variable "resource_group_name" {
-  description = "The name of the resource group"
   type        = string
+  description = "The name of the resource group"
 }
 
-variable "location" {
-  description = "The location where resources will be deployed"
+variable "resource_group_location" {
   type        = string
+  description = "The location of the resource group"
+}
+
+variable "storage_account_name" {
+  type        = string
+  description = "The name of the storage account"
 }
 
 variable "container_name" {
+  type        = string
   description = "The name of the storage container"
-  type        = string
-}
-
-variable "source_file_path" {
-  description = "The path to the source file to upload"
-  type        = string
 }

@@ -1,44 +1,44 @@
-variable "location" {
-  description = "The location where resources will be deployed"
+variable "security_group_name" {
   type        = string
+  description = "The name of the network security group"
 }
 
-variable "resource_group_name" {
-  description = "The name of the resource group"
+variable "vnet_name" {
   type        = string
-}
-
-variable "virtual_network_name" {
   description = "The name of the virtual network"
-  type        = string
-}
-
-variable "vnet_address_prefix" {
-  description = "The address prefix for the virtual network"
-  type        = string
 }
 
 variable "subnet_name" {
-  description = "The name of the subnet"
   type        = string
+  description = "The name of the subnet within the virtual network"
+}
+
+variable "public_ip_name" {
+  type        = string
+  description = "The name of the public IP address"
+}
+
+variable "rg_name" {
+  type        = string
+  description = "The name of the resource group"
+}
+
+variable "rg_location" {
+  type        = string
+  description = "The location of the resource group"
+}
+
+variable "domain_name_label" {
+  type        = string
+  description = "The label for the domain name of the public IP address"
+}
+
+variable "vnet_address" {
+  type        = string
+  description = "The address space for the virtual network (e.g., 10.0.0.0/16)"
 }
 
 variable "subnet_address_prefix" {
-  description = "The address prefix for the subnet"
   type        = string
-}
-
-variable "network_security_group_name" {
-  description = "The name of the network security group"
-  type        = string
-}
-
-variable "public_ip_address_name" {
-  description = "The name of the public IP address"
-  type        = string
-}
-
-variable "dns_label" {
-  description = "The DNS label for the public IP address"
-  type        = string
+  description = "The address prefix for the subnet (e.g., 10.0.1.0/24)"
 }

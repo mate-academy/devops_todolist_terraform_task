@@ -1,44 +1,54 @@
-variable "location" {
-  description = "The location where resources will be deployed"
-  type        = string
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group"
-  type        = string
-}
-
 variable "vm_name" {
+  type        = string
   description = "The name of the virtual machine"
-  type        = string
-}
-
-variable "vm_size" {
-  description = "The size of the virtual machine"
-  type        = string
-}
-
-variable "ssh_key_public" {
-  description = "The public SSH key for the virtual machine"
-  type        = string
-}
-
-variable "subnet_id" {
-  description = "The ID of the subnet"
-  type        = string
-}
-
-variable "public_ip_address_id" {
-  description = "The ID of the public IP address"
-  type        = string
-}
-
-variable "blob_url" {
-  description = "The URL of the blob containing the script to run"
-  type        = string
 }
 
 variable "extension_name" {
-  description = "The name of the VM extension"
   type        = string
+  description = "The name of the virtual machine extension"
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "The ID of the subnet"
+}
+
+variable "rg_name" {
+  type        = string
+  description = "The name of the resource group"
+}
+
+variable "rg_location" {
+  type        = string
+  description = "The location of the resource group"
+}
+
+variable "blob_url" {
+  type        = string
+  description = "The URL of the blob"
+}
+
+variable "vm_size" {
+  type        = string
+  description = "The size of the virtual machine (e.g., Standard_B2s)"
+}
+
+variable "admin_username" {
+  type        = string
+  description = "The username for the virtual machine administrator"
+}
+
+variable "admin_password" {
+  type        = string
+  description = "The password for the virtual machine administrator"
+}
+
+variable "key_data" {
+  type        = string
+  description = "The SSH public key for the virtual machine administrator"
+}
+
+variable "public_ip_id" {
+  type        = string
+  description = "The ID of the public IP address"
 }
