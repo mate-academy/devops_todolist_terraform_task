@@ -215,8 +215,8 @@ variable "comp_vm_os_disk_name" {
       Default value is "myosdisk1"
       EOF
   )
-  type        = string
-  default     = "myosdisk1"
+  type    = string
+  default = "myosdisk1"
   validation {
     condition = (
       length(var.comp_vm_os_disk_name) >= 1 && length(var.comp_vm_os_disk_name) <= 80 &&
@@ -243,8 +243,8 @@ variable "comp_vm_os_disk_size" {
       Default value is "64"
       EOF
   )
-  type        = string
-  default     = "64"
+  type    = string
+  default = "64"
   validation {
     condition = (
       var.comp_vm_os_disk_size >= 1 &&
@@ -272,8 +272,8 @@ variable "comp_vm_os_disk_strg_acc_type" {
       Default value is "Premium_LRS"
       EOF
   )
-  type        = string
-  default     = "Premium_LRS"
+  type    = string
+  default = "Premium_LRS"
   validation {
     condition = (
       contains([
@@ -307,5 +307,5 @@ variable "comp_custom_script_url" {
 
 variable "comp_custom_script_filename" {
   description = "enter the full file name here"
-  type = string
+  type        = string
 }

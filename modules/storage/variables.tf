@@ -228,7 +228,7 @@ variable "strg_blob_type" {
       Default value is "block"
       EOF
   )
-  type = string
+  type    = string
   default = "Block"
   validation {
     condition = (
@@ -248,7 +248,7 @@ variable "strg_blob_type" {
 
 variable "strg_blob_name" {
   description = "Required for input during module import"
-  type = string
+  type        = string
   validation {
     condition = (
       length(var.strg_blob_name) >= 1 && length(var.strg_blob_name) <= 1024 &&
