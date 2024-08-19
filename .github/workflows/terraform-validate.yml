@@ -28,6 +28,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Generate SSH Key
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
