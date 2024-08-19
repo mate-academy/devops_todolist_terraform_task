@@ -1,0 +1,17 @@
+region                  = "uksouth"
+rg_name                 = "mate-azure-task-12"
+vnet_name               = "vnet"
+vnet_address_space      = ["10.0.0.0/16"]
+subnet_name             = "default"
+subnet_address_prefixes = ["10.0.0.0/24"]
+pubip_name              = "linuxboxpip"
+nsg_name                = "defaultnsg"
+pubip_dns_prefix        = "matetask"
+nic_ip_conf_name        = "ipconfig1"
+vm_name                 = "matebox"
+vm_size                 = "Standard_B1s"
+vm_user_name            = "yegor"
+vm_user_password        = "P@sswor9.!@#"
+container_name          = "installer"
+blob_name               = "install-app.sh"
+blob_source             = "C:\\study\\MateStudy\\Terraform\\devops_todolist_terraform_task\\install-app.sh"

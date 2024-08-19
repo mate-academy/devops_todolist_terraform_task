@@ -27,7 +27,9 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
 
 - The compute module will create a network interface, virtual machine, and VM extension for deploying the ToDo List application.
     * Network Interface: name it `${var.vm_name}-nic`.
-    * Virtual Machine: name it `matebox`, image `Ubuntu2204`, size `Standard_B1s`, SSH key `linuxboxsshkey`.
+    * Virtual Machine: name it `matebox`, image `Ubuntu2204`, size `Standard_B1s`,
+
+        ~~SSH key~~ ~~​`linuxboxsshkey`​~~ **(VM doesn't have SSH key name attribute )**.
     * VM Extension: use `CustomScript` extension to execute `install-app.sh` script.
 
 
