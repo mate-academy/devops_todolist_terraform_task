@@ -3,7 +3,7 @@ resource "azurerm_public_ip" "linuxboxpip" {
   name                = "linuxboxpip"
   location            = var.location
   resource_group_name = var.resource_group_name
-  allocation_method   = "Static"  # Changed from Dynamic to Static
+  allocation_method   = "Static" # Changed from Dynamic to Static
 
   tags = {
     project     = "vr89project"
@@ -44,7 +44,7 @@ resource "azurerm_linux_virtual_machine" "matebox" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = var.ssh_key  # Correctly references the SSH key passed via the -var flag
+    public_key = var.ssh_key # Correctly references the SSH key passed via the -var flag
   }
 
   os_disk {
