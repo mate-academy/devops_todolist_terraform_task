@@ -25,6 +25,6 @@ output "public_ip_fqdn" {
 
 output "subnet_id" {
   description = "The ID of the subnet."
-  value = azurerm_subnet.default.id
+  value       = azurerm_subnet.default.id
 }
 
