@@ -18,14 +18,10 @@ output "vm_id" {
   value = module.compute.vm_id
 }
 
+output "blob_url" {
+  value = module.storage.blob_url
+}
+
 output "vm_ip" {
   value = module.compute.vm_ip
-}
-
-output "storage_account_name" {
-  value = module.storage.storage_account_name
-}
-
-output "storage_container_name" {
-  value = module.storage.storage_container_name
 }

@@ -18,6 +18,11 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 
-variable "ssh_key_public" {
+variable "ssh_key" {
   default = "sha ....."
+}
+
+variable "storage_account_name" {
+  type    = string
+  default = "storagemodulesouth"
 }

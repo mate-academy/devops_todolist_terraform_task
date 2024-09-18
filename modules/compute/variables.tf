@@ -17,7 +17,7 @@ variable "subnet_id" {
   type = string
 }
 
-variable "public_ip_id" {
+variable "public_ip_address" {
   type = string
 }
 
@@ -26,6 +26,10 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 
-variable "ssh_key_public" {
+variable "blob_url" {
+  type        = string
+}
+
+variable "ssh_key" {
   type = string
 }
