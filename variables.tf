@@ -60,7 +60,7 @@ variable "vm_size" {
 
 variable "ssh_key" {
   type    = string
-  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDBJBWs6h52TO/fGZRUrn5a4KNiT39eQSL0rVrc6bNtp43f1d0Tzuk0hupP10NHUUlHT2qr5kwEJ5VWlXStdm5ecZbp1aUDVNHM8NauNYiqYhSFyJbowXFCCuoRQKysWvkTR9lFZXywWfUCjKbYhZnfrYfyzGKV6I5mfRV5sBqalK9e9poRPJCU+BQ77ymNipnO5sx8tKgCyYLOqnTrr1WuEE9/HRjy+et4Uuo9kyRSY7eSKmmp+WekciLZfJWRX6h2nu0WQ6Etlw9drHUh7ghYG4QXA8qPgfDcPwyjap8inM2X7VeT0Wq6a5ws/JLm2wky4BnT9B3oacdXjvZ3BrDRmEY0It9k0maCYb8et7MOt/Ua5O80T6160OsvEH5oIss2PRLh/ECDRQ6W8+EVQZvtgpdswAtW7koKyIsSmI3rrSSGyhlTC9IrZC+KO5yb2AQvhSdYFk5IIcf7SvcxDl803yjP+KYBy8STd31AUPqjQ0SKIRgYAhEAKKOv1y59oOM= serveladus@Serveladus-PC"
+  default = "C:/Users/Serveladus/.ssh/id_rsa"
 }
 
 variable "blob_url" {
@@ -81,4 +81,9 @@ variable "storage_container_name" {
 variable "source_file_path" {
   type    = string
   default = "https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"
+}
+
+variable "admin_password" {
+  type    = string
+  default = "root"
 }

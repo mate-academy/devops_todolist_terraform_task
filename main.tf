@@ -57,16 +57,19 @@ resource "null_resource" "clone_git_repo" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y git",
-      "git clone https://github.com/Serveladik/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task"
+      "sudo git clone https://github.com/Serveladik/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task"
     ]
 
     connection {
-      type        = "ssh"
-      user        = "azureuser"
-      private_key = var.ssh_key
+      type     = "ssh"
+      user     = "azureuser"
+      
+      # Option 1: Use SSH Key (Uncomment this for SSH-based connection)
+      private_key = file(var.ssh_key)
       host        = module.network.public_ip_address
     }
   }
 
   depends_on = [module.compute]
 }
+
