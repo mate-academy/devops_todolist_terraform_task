@@ -1,11 +1,31 @@
 variable "location" {
-  default = "uksouth"
+  type = string
 }
 
 variable "resource_group_name" {
-  default = "mate-azure-task-12"
+  type = string
+}
+
+variable "virtual_network_name" {
+  type = string
+}
+
+variable "vnet_address_prefix" {
+  type = string
+}
+
+variable "subnet_name" {
+  type = string
+}
+
+variable "subnet_address_prefix" {
+  type = string
+}
+
+variable "network_security_group_name" {
+  type = string
 }
 
 variable "dns_label" {
-  default = "matetask"
+  type = string
 }

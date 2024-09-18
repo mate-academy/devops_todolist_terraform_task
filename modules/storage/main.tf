@@ -13,13 +13,9 @@ resource "azurerm_storage_container" "task_artifacts" {
 }
 
 resource "azurerm_storage_blob" "todoapp_blob" {
+  source                 = var.source_file_path
   name                   = "install-app.sh"
   storage_account_name   = azurerm_storage_account.storage.name
   storage_container_name = azurerm_storage_container.task_artifacts.name
   type                   = "Block"
-  source                 = var.source_file_path
-}
-
-output "blob_url" {
-  value = azurerm_storage_blob.todoapp_blob.url
 }
