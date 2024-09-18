@@ -8,10 +8,10 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "network" {
-  source                      = "./modules/network"
-  location                    = var.location
-  resource_group_name         = var.resource_group_name
-  dns_label                   = var.dns_label
+  source              = "./modules/network"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  dns_label           = var.dns_label
 }
 
 module "compute" {

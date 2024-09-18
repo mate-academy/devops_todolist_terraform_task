@@ -9,36 +9,30 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-resource "azurerm_virtual_machine" "vm" {
-  name                  = var.vm_name
-  location              = var.location
-  resource_group_name   = var.resource_group_name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  vm_size               = var.vm_size
+resource "azurerm_linux_virtual_machine" "vm" {
+  name                = var.vm_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  size                = var.vm_size
 
-  storage_image_reference {
+  #computer_name  = var.vm_name
+  admin_username = "adminuser"
+  admin_password = "P@ssw0rd1234"
+  custom_data    = filebase64("${path.root}/install-app.sh")
+
+  network_interface_ids = [
+    azurerm_network_interface.nic.id,
+  ]
+
+  source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "22.04-LTS"
     version   = "latest"
   }
-  storage_os_disk {
-    name              = "${var.vm_name}-osdisk"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Premium_LRS"
-  }
-  os_profile {
-    computer_name  = var.vm_name
-    admin_username = "adminuser"
-    admin_password = "P@ssw0rd1234"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = true
-    ssh_keys {
-      path     = "/home/adminuser/.ssh/authorized_keys"
-      key_data = var.ssh_key_public
-    }
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
   tags = {
     Name = var.vm_name
@@ -47,13 +41,15 @@ resource "azurerm_virtual_machine" "vm" {
 
 resource "azurerm_virtual_machine_extension" "custom_script" {
   name                 = "install-app"
-  virtual_machine_id   = azurerm_virtual_machine.vm.id
+  virtual_machine_id   = azurerm_linux_virtual_machine.vm.id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
-  type_handler_version = "1.10"
-  settings             = <<SETTINGS
-{
-  "script": "./install-app.sh"
-}
+  type_handler_version = "2.1"
+
+  settings = <<SETTINGS
+    {
+        "fileUris": ["https://raw.githubusercontent.com/gaupt/devops_todolist_terraform_task/main/install-app.sh"],
+        "commandToExecute": "bash install-app.sh"
+    }
 SETTINGS
 }
