@@ -65,7 +65,7 @@ variable "ssh_key" {
 
 variable "blob_url" {
   type    = string
-  default = "https://raw.githubusercontent.com/mate-academy/devops_todolist_terraform_task/main/install-app.sh"
+  default = "https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"
 }
 
 variable "storage_account_name" {
@@ -80,5 +80,5 @@ variable "storage_container_name" {
 
 variable "source_file_path" {
   type    = string
-  default = "https://raw.githubusercontent.com/mate-academy/devops_todolist_terraform_task/main/install-app.sh"
+  default = "https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"
 }
