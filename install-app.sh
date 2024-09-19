@@ -15,11 +15,11 @@ sudo mkdir /home/azureuser/app
 
 sudo chown -R azureuser:azureuser /home/azureuser/devops_todolist_terraform_task
 sudo chown -R azureuser:azureuser /home/azureuser/app
-# sudo chmod 644 /home/azureuser/app/start.sh
 
 # make sure to uncomment the line bellow and update the link with your GitHub username
 # git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
 cp -r /home/azureuser/devops_todolist_terraform_task/app/* /home/azureuser/app
+chmod +x /home/azureuser/app/start.sh
 
 # create a service for the app via systemctl and start the app
 sudo mv /home/azureuser/app/todoapp.service /etc/systemd/system/

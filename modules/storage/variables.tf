@@ -1,19 +1,19 @@
 variable "resource_group_name" {
-  type    = string
+  type = string
 }
 
 variable "location" {
-  type    = string
+  type = string
 }
 
 variable "storage_account_name" {
-  type    = string
+  type = string
 }
 
 variable "storage_container_name" {
-  type    = string
+  type = string
 }
 
 variable "source_file_path" {
-  type    = string
+  type = string
 }

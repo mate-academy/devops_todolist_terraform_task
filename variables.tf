@@ -59,14 +59,14 @@ variable "vm_size" {
 }
 
 variable "ssh_key_private" {
-  type    = string
-  default = "C:/Users/Serveladus/.ssh/id_rsa"
+  type      = string
+  default   = "C:/Users/Serveladus/.ssh/id_rsa"
   sensitive = true
 }
 
 variable "ssh_key_public" {
-  type    = string
-  default = "C:/Users/Serveladus/.ssh/id_rsa.pub"
+  type      = string
+  default   = "C:/Users/Serveladus/.ssh/id_rsa.pub"
   sensitive = true
 }
 
