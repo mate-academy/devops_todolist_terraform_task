@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   ]
   admin_ssh_key {
     username   = "azureuser"
-    public_key = var.ssh_key
+    public_key = file(var.ssh_key_public)
   }
   os_disk {
     caching              = "ReadWrite"
@@ -42,8 +42,8 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
+
   settings = jsonencode({
-    fileUris = [var.blob_url]
-    commandToExecute = "bash install-app.sh"
+    commandToExecute = "chmod +x /home/azureuser/devops_todolist_terraform_task/install-app.sh && bash /home/azureuser/devops_todolist_terraform_task/install-app.sh"
   })
 }

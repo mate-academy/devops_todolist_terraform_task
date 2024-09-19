@@ -58,29 +58,31 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 
-variable "ssh_key" {
+variable "ssh_key_private" {
   type    = string
   default = "C:/Users/Serveladus/.ssh/id_rsa"
+  sensitive = true
 }
 
-variable "blob_url" {
+variable "ssh_key_public" {
   type    = string
-  default = "https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"
+  default = "C:/Users/Serveladus/.ssh/id_rsa.pub"
+  sensitive = true
 }
 
 variable "storage_account_name" {
   type    = string
-  default = "taskartifacts"
+  default = "storagemodulesouth"
 }
 
 variable "storage_container_name" {
   type    = string
-  default = "tfstate"
+  default = "task-artifacts"
 }
 
 variable "source_file_path" {
   type    = string
-  default = "https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"
+  default = "home/azureuser/devops_todolist_terraform_task/install-app.sh"
 }
 
 variable "admin_password" {

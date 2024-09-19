@@ -22,10 +22,10 @@ variable "public_ip_address_id" {
   type = string
 }
 
-variable "ssh_key" {
+variable "ssh_key_private" {
   type = string
 }
 
-variable "blob_url" {
+variable "ssh_key_public" {
   type = string
 }

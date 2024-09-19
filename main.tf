@@ -38,8 +38,8 @@ module "compute" {
   vm_size              = var.vm_size
   subnet_id            = module.network.subnet_id
   public_ip_address_id = module.network.public_ip_address_id
-  ssh_key              = var.ssh_key
-  blob_url             = var.blob_url
+  ssh_key_public       = var.ssh_key_public
+  ssh_key_private      = var.ssh_key_private
 }
 
 module "storage" {
@@ -49,7 +49,6 @@ module "storage" {
   storage_account_name   = var.storage_account_name
   storage_container_name = var.storage_container_name
   source_file_path       = var.source_file_path
-
 }
 
 resource "null_resource" "clone_git_repo" {
@@ -57,19 +56,23 @@ resource "null_resource" "clone_git_repo" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y git",
-      "sudo git clone https://github.com/Serveladik/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task"
+      # Check if the directory exists
+      "if [ ! -d /home/azureuser/devops_todolist_terraform_task ]; then",
+      "  sudo git clone https://github.com/Serveladik/devops_todolist_terraform_task /home/azureuser/devops_todolist_terraform_task",
+      "else",
+      "  echo 'Directory /home/azureuser/devops_todolist_terraform_task already exists. Skipping clone operation.'",
+      "  # Optionally, you can update the existing repository if needed",
+      "  cd /home/azureuser/devops_todolist_terraform_task && sudo git pull",
+      "fi"
     ]
 
     connection {
-      type     = "ssh"
-      user     = "azureuser"
-      
-      # Option 1: Use SSH Key (Uncomment this for SSH-based connection)
-      private_key = file(var.ssh_key)
+      type        = "ssh"
+      user        = "azureuser"
+      private_key = file(var.ssh_key_private)
       host        = module.network.public_ip_address
     }
   }
-
   depends_on = [module.compute]
 }
 

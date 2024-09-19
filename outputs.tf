@@ -10,10 +10,6 @@ output "storage_container_name" {
   value = module.storage.storage_container_name
 }
 
-output "blob_url" {
-  value = module.storage.blob_url
-}
-
 output "virtual_network_name" {
   value = module.network.virtual_network.name
 }
