@@ -42,8 +42,8 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.1"
-
   settings = jsonencode({
-    commandToExecute = "chmod +x /home/azureuser/devops_todolist_terraform_task/install-app.sh && bash /home/azureuser/devops_todolist_terraform_task/install-app.sh"
+    fileUris = ["https://raw.githubusercontent.com/Serveladik/devops_todolist_terraform_task/main/install-app.sh"]
+    commandToExecute = "bash install-app.sh"
   })
 }
