@@ -1,27 +1,33 @@
 #!/bin/bash
 
-# Script to silently install and start the todo web app on the virtual machine. 
-# Note that all commands bellow are without sudo - that's because extention mechanism 
-# runs scripts under root user. 
-
-# install system updates and isntall python3-pip package using apt. '-yq' flags are 
-# used to suppress any interactive prompts - we won't be able to confirm operation 
-# when running the script as VM extention.  
+# Update and install python3-pip
 sudo apt-get update -yq
 sudo apt-get install python3-pip -yq
 
-# Create a directory for the app and download the files. 
-sudo mkdir /home/azureuser/app
+# Create a directory for the app if it doesn't exist
+if [ ! -d /home/azureuser/app ]; then
+    sudo mkdir /home/azureuser/app
+fi
 
+# Change ownership of directories
 sudo chown -R azureuser:azureuser /home/azureuser/devops_todolist_terraform_task
 sudo chown -R azureuser:azureuser /home/azureuser/app
 
-# make sure to uncomment the line bellow and update the link with your GitHub username
-# git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
-sudo cp -r /home/azureuser/devops_todolist_terraform_task/app/* /home/azureuser/app
+# Copy files to the app directory
+if [ -d /home/azureuser/devops_todolist_terraform_task/app ]; then
+    sudo cp -r /home/azureuser/devops_todolist_terraform_task/app/* /home/azureuser/app
+else
+    echo "Source directory /home/azureuser/devops_todolist_terraform_task/app does not exist."
+    exit 1
+fi
 
-# create a service for the app via systemctl and start the app
-sudo mv /home/azureuser/app/todoapp.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl start todoapp
-sudo systemctl enable todoapp
+# Move and enable the service
+if [ -f /home/azureuser/app/todoapp.service ]; then
+    sudo mv /home/azureuser/app/todoapp.service /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl start todoapp
+    sudo systemctl enable todoapp
+else
+    echo "Service file /home/azureuser/app/todoapp.service does not exist."
+    exit 1
+fi
