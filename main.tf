@@ -69,7 +69,7 @@ resource "null_resource" "clone_git_repo" {
     connection {
       type        = "ssh"
       user        = "azureuser"
-      private_key = file(var.ssh_key_private)
+      private_key = file(var.ssh_key_public)
       host        = module.network.public_ip_address
     }
   }
