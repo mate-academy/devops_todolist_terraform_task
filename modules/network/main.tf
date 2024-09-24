@@ -34,8 +34,9 @@ resource "azurerm_network_security_group" "defaultnsg" {
   }
 }
 
-resource "random_id" "dns_suffix" {
-  byte_length = 2
+resource "random_integer" "dns_suffix" {
+  min = 1
+  max = 9999
 }
 
 resource "azurerm_public_ip" "linuxboxpip" {
@@ -44,5 +45,5 @@ resource "azurerm_public_ip" "linuxboxpip" {
   location            = var.location
   allocation_method   = "Dynamic"
   sku                 = "Basic"
-  domain_name_label   = "${var.dns_label}${random_id.dns_suffix.hex}"
+  domain_name_label   = "${var.dns_label}${random_integer.dns_suffix.result}"
 }

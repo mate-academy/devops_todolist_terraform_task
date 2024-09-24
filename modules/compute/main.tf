@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = var.linuxboxsshkey
+    public_key = file(var.linuxboxsshkey)
   }
 
   source_image_reference {
@@ -34,6 +34,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   os_disk {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
+    disk_size_gb         = "64"
   }
 }
 
@@ -47,9 +48,8 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
 
   settings = <<SETTINGS
  {
-  "fileUris": ["https://https://github.com/v-shutov/devops_todolist_terraform_task/blob/main/install-app.sh"],
-  "commandToExecute": "sh install-app.sh",
-  "skipDos2Unix": true
+  "fileUris": ["${var.blob_url}"],
+  "commandToExecute": "bash ${var.blob_name}"
  }
 SETTINGS
 }

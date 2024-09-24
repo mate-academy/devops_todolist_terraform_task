@@ -39,7 +39,7 @@ module "network" {
 
 module "compute" {
   source               = "./modules/compute"
-  depends_on           = [azurerm_resource_group.main, module.network]
+  depends_on           = [azurerm_resource_group.main, module.network, module.storage]
   resource_group_name  = azurerm_resource_group.main.name
   location             = azurerm_resource_group.main.location
   vm_name              = var.vm_name
@@ -48,6 +48,8 @@ module "compute" {
   public_ip_address_id = module.network.public_ip.id
   admin_username       = var.admin_username
   linuxboxsshkey       = var.ssh_key_public
+  blob_url             = module.storage.storage_blob.url
+  blob_name            = module.storage.storage_blob.name
 }
 
 module "storage" {

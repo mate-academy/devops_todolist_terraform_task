@@ -5,3 +5,7 @@ output "storage_account" {
 output "task_artifacts_storage_container" {
   value = azurerm_storage_container.task_artifacts
 }
+
+output "storage_blob" {
+  value = azurerm_storage_blob.script-blob
+}

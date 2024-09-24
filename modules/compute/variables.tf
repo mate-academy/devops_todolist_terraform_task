@@ -37,3 +37,13 @@ variable "linuxboxsshkey" {
   description = "The SSH public key to be used for authentication to the virtual machine."
   type        = string
 }
+
+variable "blob_url" {
+  description = "The URL of the blob"
+  type        = string
+}
+
+variable "blob_name" {
+  description = "The blob with script name"
+  type        = string
+}
