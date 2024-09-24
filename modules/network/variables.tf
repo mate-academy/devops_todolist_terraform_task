@@ -45,8 +45,20 @@ variable "nsg_rules" {
     priority               = number
     destination_port_range = string
   }))
-}
 
+  default = [
+    {
+      name                   = "SSH",
+      priority               = 100,
+      destination_port_range = "22"
+    },
+    {
+      name                   = "HTTP",
+      priority               = 110,
+      destination_port_range = "80"
+    }
+  ]
+}
 
 variable "public_ip_address_name" {
   description = "The name of the public IP address resource with dynamic allocation method."

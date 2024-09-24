@@ -9,9 +9,11 @@ variable "resource_group_name" {
 }
 
 variable "storage_account_name" {
-  type = string
+  description = "The name of the Azure Storage Account that will store the task artifacts."
+  type        = string
 }
 
-variable "container_name" {
-  type = string
+variable "task_artifacts_container_name" {
+  description = "The name of the container in the storage account where task artifacts will be stored."
+  type        = string
 }

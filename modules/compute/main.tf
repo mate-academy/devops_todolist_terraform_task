@@ -11,46 +11,38 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
-resource "azurerm_virtual_machine" "main" {
+resource "azurerm_linux_virtual_machine" "main" {
   name                  = var.vm_name
   location              = var.location
   resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size               = var.vm_size
+  size                  = var.vm_size
+  admin_username        = var.admin_username
 
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = var.linuxboxsshkey
+  }
 
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
     version   = "latest"
   }
-  storage_os_disk {
-    name              = "myosdisk1"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-  os_profile {
-    computer_name  = "todoappserver"
-    admin_username = var.admin_username
-  }
 
-  os_profile_linux_config {
-    disable_password_authentication = true
-    ssh_keys {
-      path = var.linuxboxsshkey.path
-      key_data = var.linuxboxsshkey.key_data
-    }
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
   }
 }
 
 resource "azurerm_virtual_machine_extension" "custom_script" {
-  name                 = "install_app"
-  virtual_machine_id   = azurerm_virtual_machine.main.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
+  name                       = "install_app"
+  virtual_machine_id         = azurerm_linux_virtual_machine.main.id
+  publisher                  = "Microsoft.Azure.Extensions"
+  type                       = "CustomScript"
+  type_handler_version       = "2.0"
   auto_upgrade_minor_version = true
 
   settings = <<SETTINGS

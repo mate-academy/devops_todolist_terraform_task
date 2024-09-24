@@ -9,29 +9,31 @@ variable "resource_group_name" {
 }
 
 variable "subnet_id" {
-  type = string
+  description = "The ID of the subnet in which the virtual machine's network interface will be created."
+  type        = string
 }
 
 variable "public_ip_address_id" {
-  type = string
+  description = "The ID of the public IP address to be associated with the network interface."
+  type        = string
 }
 
 variable "vm_name" {
-  type = string
+  description = "The name of the virtual machine to be created."
+  type        = string
 }
 
 variable "vm_size" {
-  type = string
+  description = "The size of the virtual machine, such as 'Standard_B1s'."
+  type        = string
 }
 
 variable "admin_username" {
-  type = string
+  description = "The username for the admin account on the virtual machine."
+  type        = string
 }
 
 variable "linuxboxsshkey" {
-  description = "SSH key for the virtual machine."
-  type = object({
-    path     = string
-    key_data = string
-  })
+  description = "The SSH public key to be used for authentication to the virtual machine."
+  type        = string
 }
