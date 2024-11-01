@@ -10,12 +10,17 @@
 apt-get update -yq
 apt-get install python3-pip -yq
 
-# Create a directory for the app and download the files. 
+cd ~
+git clone https://github.com/losiev/devops_todolist_terraform_task.git
+# Create a directory for the app and download the files.
 mkdir /app 
 # make sure to uncomment the line bellow and update the link with your GitHub username
 # git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
 cp -r devops_todolist_terraform_task/app/* /app
+rm -rf ~/devops_todolist_terraform_task
 
+cd /app
+chmod +x start.sh
 # create a service for the app via systemctl and start the app
 mv /app/todoapp.service /etc/systemd/system/
 systemctl daemon-reload
