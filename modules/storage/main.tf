@@ -23,5 +23,5 @@ resource "azurerm_storage_blob" "script-blob" {
   storage_account_name   = azurerm_storage_account.main.name
   storage_container_name = azurerm_storage_container.script.name
   type                   = "Block"
-  source                 = "C:/Users/User.SHU/projects/terraform/devops_todolist_terraform_task/install-app.sh"
+  source                 = "D:/mate-academy/devops_todolist_terraform_task/install-app.sh"
 }
