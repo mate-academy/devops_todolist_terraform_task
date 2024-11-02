@@ -1,11 +1,11 @@
 output "vnet_id" {
   description = "The ID of the virtual network."
-  value       = azurerm_virtual_network.main.id
+  value       = azurerm_virtual_network.vnet.id
 }
 
 output "network_security_group_id" {
   description = "The ID of the network security group."
-  value       = azurerm_network_security_group.default-nsg.id
+  value       = azurerm_network_security_group.defaultnsg.id
 }
 
 output "public_ip_id" {
@@ -25,5 +25,5 @@ output "public_ip_fqdn" {
 
 output "subnet_id" {
   description = "The ID of the subnet."
-  value = azurerm_subnet.internal.id
+  value       = azurerm_subnet.default.id
 }
