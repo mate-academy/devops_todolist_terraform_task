@@ -27,3 +27,13 @@ variable "ssh_key" {
   description = "The SSH public key for authentication."
   type        = string
 }
+
+variable "virtual_network_name" {
+  description = "The name of the virtual network"
+  type        = string
+}
+
+variable "vnet_address_prefix" {
+  description = "The address prefix for the virtual network"
+  type        = string
+}
