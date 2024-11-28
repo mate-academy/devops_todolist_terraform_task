@@ -29,14 +29,8 @@ variable "ssh_public_key" {
   type        = string
 }
 
-variable "vm_extension_name" {
-  description = "The SSH public key for the virtual machine"
-  type        = string
-  default     = "vmextension"
-}
-
 variable "vm_size" {
-  description = "The SSH public key for the virtual machine"
+  description = "The virtual machine size."
   type        = string
   default     = "Standard_B1s"
 }
