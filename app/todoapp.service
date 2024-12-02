@@ -2,8 +2,8 @@
 Description=todoapp service
 
 [Service]
-WorkingDirectory=/app
-ExecStart=/app/start.sh
+WorkingDirectory=/home/azureuser/app
+ExecStart=/home/azureuser/app/start.sh
 StandardOutput=syslog
 StandardError=syslog
 
