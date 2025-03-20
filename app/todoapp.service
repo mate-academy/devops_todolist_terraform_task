@@ -2,8 +2,8 @@
 Description=todoapp service
 
 [Service]
-WorkingDirectory=/app
-ExecStart=/app/start.sh
+WorkingDirectory=/tmp/app
+ExecStart=/tmp/app/start.sh
 StandardOutput=syslog
 StandardError=syslog
 
