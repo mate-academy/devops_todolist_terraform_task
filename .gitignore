@@ -1,0 +1,5 @@
+**/.terraform
+**/*.tfstate*
+**/*.lock*
+fmt.sh
+contron-void-rows-EOF.sh
