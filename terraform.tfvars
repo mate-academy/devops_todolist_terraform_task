@@ -1,0 +1,13 @@
+resource_group_name            = "mate-azure-task-12_terraform"
+location                       = "uksouth"
+azurerm_virtual_network        = "vnet"
+vnet_address_prefix            = "10.0.0.0/16"
+azurerm_subnet                 = "default"
+azurerm_subnet_address_prefix  = "10.0.0.0/24"
+azurerm_network_security_group = "defaultnsg"
+azurerm_public_ip              = "linuxboxpip"
+azurerm_virtual_machine        = "matebox"
+azurerm_virtual_machine_size   = "Standard_B1s"
+ssh_key_public                 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCY1TPSsHea98kt1BNyRcJMvmYb/zlNBQOMs8mTjkzB1G/2lhhfH8lSrJE2ugc9VGeTrxffti0kqNA9dO1QBwwipzKJn95M+B3IKEr+JYI2kJRWYn9bz4WGfK5aFfPUnGyDPG/i9GLNtQouq5gNyqmmDv2rPqgfm7mvkrYQ6HMMSkJ1ogWqVqUiKoE9KdojgZWw+ojfsiX4Ydwy4Icfw14+B4iAsp0pboB7z0knTVlbUWlHqzzWX4hwUIKX6B0ZJ4bzqxn1urlNj6m25b3LCe5kwAaCdDDQ1RnjCldjWR3rVhNSZfHGtN9LNzGk6CnalOa5WnfFU2GglmzuuNVQ+uzpjCl16nKYnujQq6DSejReklNt16m7twyOcnszFFE8nlF5vr4su1/M9pCsdw8SRgNbKwANvdum1azCnqjoXigEmK54NUo+94jjRfPGkEYsxwTmSEabKFa6Ic+L+r362giKHPSe+1yTujCoTpMTumApWfRlukR2RFurGf52v4QWEOdn1OoOQJNeOXrTb08OnMdUSDIPWnid4qLdIvDtxOPFfBhVB6lsbzDHsyp1XF0OwJHTaWxkjVpSnBHj/Z3wVdA8BpVsZ206hJsTaLxqZ0VvjciCMepb5ZbLje2WANpk4+3DSPDNL1bFt3nuxjbWFXOAxY+e9uTlOI/5rq6JRXl12w== konstantinou77"
+dns_label                      = "matetask"
+
