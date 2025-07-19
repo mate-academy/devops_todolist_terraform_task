@@ -1,0 +1,15 @@
+dns_label             = "matetask"
+location              = "uksouth"
+resource_group_name   = "mate-azure-task-12"
+network_name          = "vnet"
+nsg_name              = "defaultnsg"
+subnet_name           = "default"
+subnet_address_prefix = ["10.0.0.0/24"]
+public_ip_name        = "linuxboxpip"
+vnet_address_space    = ["10.0.0.0/16"]
+vm_name               = "matebox"
+vm_size               = "Standard_B1s"
+ssh_key_public        = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7ETJ65Luh26oth/mvxX3nbiPYAtl01PWPFqOu/uOnTRdd5y+XuK2Of1POkVNP7KaGC0QUp7/sAY5MxLMeKwEm78IyCQmi1Kg3h5GXfQY0D5tARUincPndRnZROp1soGXzifo2wlMtVXpoIMpETsGBpxeJdg4FywUSGINknFoFjrRcf/4sQE3tlfgcMoSDkqV/XyaV2KYDv4KQHgXtp9ND+FHMq+c5JCt0meLwHWGbJ+7MeJB8EKta8MVVrPvqZWFvynvtCEcYAO967EToi5HEhXdLGBV4tX+LmD1IkfMeSX8LhPMGrBvrWv2FbIEUxuwjbY6Ftv5a4Idy6fauI7w/AKdANYFqjtiC6aUpJXCg1XFHXMTthlXn6fCyaQg3hBvl5ZuDCHYvGCQnfAduz9jLxK6hfnsTcznco1Tm0ukcCHrOkH89zLm3N+OquwOMoYWy4q3AXxtD1PLZYqgn1cs1JnjqYpSY8nqJtIFWcvjZe2s74VmgbdHaa3Jpa79uMsE= andrii"
+admin_username        = "andrii"
+storage_account_name  = "devopstftaskstorage"
+container_name        = "tfstate"
