@@ -88,7 +88,7 @@ jobs:
 
     - name: Check virtual machine configuration
       run: |
-        if ! grep -q 'resource "azurerm_linux_virtual_machine"' modules/compute/main.tf; then
+        if ! grep -q 'resource "azurerm_virtual_machine"' modules/compute/main.tf; then
           echo "Virtual machine configuration not found in modules/compute/main.tf!"
           exit 1
         fi
