@@ -48,15 +48,11 @@ resource "azurerm_virtual_machine_extension" "app_install" {
   type                 = "CustomScript"
   type_handler_version = "2.1"
 
-  settings = <<SETTINGS
-{
-  "commandToExecute": "bash install-app.sh"
-}
-SETTINGS
+  protected_settings = jsonencode({
+    script = base64encode(file("${path.root}/install-app.sh"))
+  })
 
-  protected_settings = <<PROTECTED_SETTINGS
-{
-  "script": "${base64encode(file("install-app.sh"))}"
-}
-PROTECTED_SETTINGS
+  tags = {
+    environment = "production"
+  }
 }
