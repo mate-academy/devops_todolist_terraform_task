@@ -39,18 +39,15 @@ module "network" {
 module "storage" {
   source = "./modules/storage"
 
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  resource-location      = var.location
+  resource-group-name   = azurerm_resource_group.rg.name
 }
 
 module "compute" {
   source = "./modules/compute"
-
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
-  vm_name             = var.vm_name
-  vm_size             = var.vm_size
+  ssh_public_key      = var.ssh_public_key
   subnet_id           = module.network.subnet_id
   public_ip_id        = module.network.public_ip
-  ssh_key_public      = var.ssh_key_public
 }
