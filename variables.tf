@@ -68,9 +68,3 @@ variable "dns_label" {
   type        = string
   default     = "matetask"
 }
-
-variable "ssh_public_key" {
-  description = "Path to the SSH public key"
-  type        = string
-  default     = "~/.ssh/linuxboxsshkey.pub"
-}
