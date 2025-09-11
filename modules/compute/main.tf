@@ -11,6 +11,13 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
+resource "azurerm_ssh_public_key" "linuxboxsshkey" {
+  name                = "linuxboxsshkey"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  public_key          = var.ssh_key_public
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = var.vm_name
   location            = var.location
@@ -25,7 +32,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = var.ssh_key_public
+    public_key = azurerm_ssh_public_key.linuxboxsshkey.public_key
   }
 
   os_disk {
@@ -49,7 +56,7 @@ resource "azurerm_virtual_machine_extension" "app_install" {
   type_handler_version = "2.1"
 
   protected_settings = jsonencode({
-    script = base64encode(file("${path.root}/install-app.sh"))
+    script = base64encode(file("${path.module}/install-app.sh"))
   })
 
   tags = {

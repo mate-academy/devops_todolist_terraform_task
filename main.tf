@@ -25,9 +25,12 @@ resource "azurerm_resource_group" "rg" {
 module "network" {
   source = "./modules/network"
 
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                = {}
+  location                    = var.location
+  resource_group_name         = azurerm_resource_group.rg.name
+  dns_label                   = var.dns_label
+  public_ip_address_name      = var.public_ip_address_name
+  network_security_group_name = var.network_security_group_name
+  tags                        = {}
 }
 
 module "storage" {

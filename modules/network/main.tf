@@ -15,7 +15,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "defaultnsg"
+  name                = var.network_security_group_name
   location            = var.location
   resource_group_name = var.resource_group_name
 }
@@ -59,10 +59,10 @@ resource "random_integer" "dns_suffix" {
 }
 
 resource "azurerm_public_ip" "pip" {
-  name                = "linuxboxpip"
+  name                = var.public_ip_address_name
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
   sku                 = "Basic"
-  domain_name_label   = "matetask${random_integer.dns_suffix.result}"
+  domain_name_label   = "${var.dns_label}${random_integer.dns_suffix.result}"
 }

@@ -61,6 +61,12 @@ variable "vm_size" {
 variable "ssh_key_public" {
   description = "Public SSH key for authentication"
   type        = string
+  sensitive   = true
+
+  validation {
+    condition     = length(var.ssh_key_public) > 0
+    error_message = "SSH public key cannot be empty."
+  }
 }
 
 variable "dns_label" {
