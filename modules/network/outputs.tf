@@ -10,6 +10,10 @@ output "nsg_id" {
   value = azurerm_network_security_group.nsg.id
 }
 
+output "public_ip_id" {
+  value = azurerm_public_ip.pip.id
+}
+
 output "public_ip" {
   value = azurerm_public_ip.pip.ip_address
 }

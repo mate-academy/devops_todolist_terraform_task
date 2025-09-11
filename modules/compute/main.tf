@@ -12,10 +12,10 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "matebox"
+  name                = var.vm_name
   location            = var.location
   resource_group_name = var.resource_group_name
-  size                = "Standard_B1s"
+  size                = var.vm_size
 
   admin_username = "azureuser"
 
@@ -25,7 +25,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file(var.ssh_public_key)
+    public_key = var.ssh_key_public
   }
 
   os_disk {
@@ -56,7 +56,7 @@ SETTINGS
 
   protected_settings = <<PROTECTED_SETTINGS
 {
-  "script": "${file("install-app.sh")}"
+  "script": "${base64encode(file("install-app.sh"))}"
 }
 PROTECTED_SETTINGS
 }

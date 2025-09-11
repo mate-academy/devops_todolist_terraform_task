@@ -17,12 +17,6 @@ provider "azurerm" {
   features {}
 }
 
-# Random для DNS-лейбла
-resource "random_integer" "dns_suffix" {
-  min = 1000
-  max = 9999
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
@@ -33,21 +27,24 @@ module "network" {
 
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
+  tags                = {}
 }
-
 
 module "storage" {
   source = "./modules/storage"
 
-  resource-location      = var.location
-  resource-group-name   = azurerm_resource_group.rg.name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 module "compute" {
   source = "./modules/compute"
+
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
-  ssh_public_key      = var.ssh_public_key
+  vm_name             = var.vm_name
+  vm_size             = var.vm_size
   subnet_id           = module.network.subnet_id
-  public_ip_id        = module.network.public_ip
+  public_ip_id        = module.network.public_ip_id
+  ssh_key_public      = var.ssh_key_public
 }

@@ -11,6 +11,11 @@ variable "vm_name" {
   default = "matebox"
 }
 
+variable "vm_size" {
+  type    = string
+  default = "Standard_B1s"
+}
+
 variable "subnet_id" {
   type = string
 }
@@ -19,7 +24,6 @@ variable "public_ip_id" {
   type = string
 }
 
-variable "ssh_public_key" {
-  type    = string
-  default = "~/.ssh/linuxboxsshkey.pub"
+variable "ssh_key_public" {
+  type = string
 }
