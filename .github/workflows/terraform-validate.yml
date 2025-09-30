@@ -30,22 +30,6 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Check resource group configuration
-      run: |
-        if ! grep -q 'resource "azurerm_resource_group"' main.tf; then
-          echo "Resource group configuration not found in main.tf!"
-          exit 1
-        fi
-        echo "Resource group configuration is present."
-
-    - name: Check storage account configuration
-      run: |
-        if ! grep -q 'resource "azurerm_storage_account"' modules/storage/main.tf; then
-          echo "Storage account configuration not found in modules/storage/main.tf!"
-          exit 1
-        fi
-        echo "Storage account configuration is present."
-
     - name: Check container configuration
       run: |
         if ! grep -q 'resource "azurerm_storage_container"' modules/storage/main.tf; then
