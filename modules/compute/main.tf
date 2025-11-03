@@ -65,8 +65,9 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
   auto_upgrade_minor_version = true
 
   settings = jsonencode({
-    "commandToExecute" = "bash /tmp/install-app.sh"
+    "commandToExecute" = "bash install-app.sh"
   })
+
 
   protected_settings = jsonencode({
     "fileUris" = [

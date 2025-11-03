@@ -77,7 +77,7 @@ resource "azurerm_public_ip" "main" {
   name                = var.public_ip_address_name
   location            = var.location
   resource_group_name = var.resource_group_name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   domain_name_label   = "${var.dns_label}-${random_integer.dns_suffix.result}"
   sku = "Standard"
 

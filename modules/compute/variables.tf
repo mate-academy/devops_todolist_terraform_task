@@ -42,5 +42,5 @@ variable "environment" {
 variable "script_uri" {
   description = "URI of the custom script to execute"
   type        = string
-  default     = "https://raw.githubusercontent.com/demon9709/devops_todolist_terraform_task/master/install-app.sh"
+  default     = "https://raw.githubusercontent.com/demon9709/devops_todolist_terraform_task/main/install-app.sh"
 }
