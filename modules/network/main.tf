@@ -47,7 +47,7 @@ resource "azurerm_network_security_rule" "http" {
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_range      = "80"
+  destination_port_range      = "8080"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
@@ -77,7 +77,7 @@ resource "azurerm_public_ip" "main" {
   name                = var.public_ip_address_name
   location            = var.location
   resource_group_name = var.resource_group_name
-  allocation_method   = "Static"
+  allocation_method   = "Dynamic"
   domain_name_label   = "${var.dns_label}-${random_integer.dns_suffix.result}"
   sku = "Standard"
 
