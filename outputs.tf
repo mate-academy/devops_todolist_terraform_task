@@ -40,7 +40,7 @@ output "primary_blob_endpoint" {
 
 output "access_instructions" {
   description = "Instructions for accessing the deployed application"
-  value       = "Access the application at http://${module.network.public_ip_address}/ or https://${module.network.public_ip_fqdn}/"
+  value       = "Access the application at http://${module.network.public_ip_address}:8080/ or https://${module.network.public_ip_fqdn}:8080/"
 }
 
 output "ssh_connection_string" {
