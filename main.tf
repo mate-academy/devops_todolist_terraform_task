@@ -60,7 +60,7 @@ module "compute" {
   subnet_id    = module.network.subnet_id
   public_ip_id = module.network.public_ip_id
 
-  nic_name       = var.nic_name
+  nic_name       = "${var.vm_name}-nic"
   vm_name        = var.vm_name
   vm_size        = var.vm_size
   admin_username = var.admin_username

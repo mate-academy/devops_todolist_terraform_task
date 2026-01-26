@@ -1,6 +1,6 @@
 variable "location" {
   type    = string
-  default = "westeurope"
+  default = "uksouth"
 }
 
 variable "resource_group_name" {
@@ -44,15 +44,9 @@ variable "dns_label_prefix" {
   default = "matetask"
 }
 
-# Compute
-variable "nic_name" {
-  type    = string
-  default = "linuxboxnic"
-}
-
 variable "vm_name" {
   type    = string
-  default = "linuxboxvm"
+  default = "matebox"
 }
 
 variable "vm_size" {
