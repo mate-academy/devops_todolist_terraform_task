@@ -15,7 +15,7 @@ mkdir -p /app
 cd /tmp
 # make sure to uncomment the line bellow and update the link with your GitHub username
 # git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
-apt-get install
+apt-get install -yq git
 git clone https://github.com/KyryloKilin/devops_todolist_terraform_task.git
 cp -r devops_todolist_terraform_task/app/* /app
 pip3 install -r /app/requirements.txt
