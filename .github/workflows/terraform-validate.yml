@@ -22,6 +22,9 @@ jobs:
   terraform_validate:
     name: "Format and Validate Code"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
 
     steps:
     - name: Checkout code
