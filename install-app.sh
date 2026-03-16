@@ -1,23 +1,37 @@
 #!/bin/bash
 
-# Script to silently install and start the todo web app on the virtual machine. 
-# Note that all commands bellow are without sudo - that's because extention mechanism 
-# runs scripts under root user. 
+set -euo pipefail
 
-# install system updates and isntall python3-pip package using apt. '-yq' flags are 
-# used to suppress any interactive prompts - we won't be able to confirm operation 
-# when running the script as VM extention.  
+# Script runs as root via Azure Custom Script extension.
+REPO_URL="${1:-https://github.com/<your-gh-username>/devops_todolist_terraform_task.git}"
+WORKDIR="/opt/todo-src"
+APPDIR="/app"
+
 apt-get update -yq
-apt-get install python3-pip -yq
+apt-get install -yq git python3-pip python3-venv
 
-# Create a directory for the app and download the files. 
-mkdir /app 
-# make sure to uncomment the line bellow and update the link with your GitHub username
-# git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
-cp -r devops_todolist_terraform_task/app/* /app
+rm -rf "${WORKDIR}" "${APPDIR}"
+git clone "${REPO_URL}" "${WORKDIR}"
+mkdir -p "${APPDIR}"
+cp -r "${WORKDIR}/app/." "${APPDIR}"
 
-# create a service for the app via systemctl and start the app
-mv /app/todoapp.service /etc/systemd/system/
+cat > /app/start.sh <<'EOF'
+#!/bin/bash
+set -euo pipefail
+
+cd /app
+python3 -m venv /app/venv
+source /app/venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+python3 manage.py migrate
+exec python3 manage.py runserver 0.0.0.0:8080
+EOF
+
+chmod +x /app/start.sh
+chmod +x /app/manage.py
+
+mv /app/todoapp.service /etc/systemd/system/todoapp.service
 systemctl daemon-reload
-systemctl start todoapp
 systemctl enable todoapp
+systemctl restart todoapp
