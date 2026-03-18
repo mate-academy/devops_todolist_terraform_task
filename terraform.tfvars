@@ -9,6 +9,7 @@ network_security_group_name = "defaultnsg"
 public_ip_address_name      = "linuxboxpip"
 dns_label                   = "matetask"
 
+vm_name        = "matebox"
 vm_size        = "Standard_B2ats_v2"
 vm_publisher   = "Canonical"
 vm_offer       = "0001-com-ubuntu-server-jammy"

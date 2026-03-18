@@ -43,6 +43,11 @@ variable "dns_label" {
   description = "Static part of DNS label"
 }
 
+variable "vm_name" {
+  type        = string
+  description = "Name of the virtual machine"
+}
+
 variable "vm_size" {
   type        = string
   description = "Size of the virtual machine"

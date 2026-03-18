@@ -21,7 +21,7 @@ module "network" {
 module "compute" {
   source = "./modules/compute"
 
-  vm_name = "matebox"
+  vm_name = var.vm_name
 
   location            = var.location
   resource_group_name = var.resource_group_name
