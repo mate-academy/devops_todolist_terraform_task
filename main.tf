@@ -1,3 +1,9 @@
+resource "azurerm_resource_group" "task_artifacts_sg" {
+  name = "task-artifacts-sg"
+
+  location = var.location
+}
+
 module "network" {
   source = "./modules/network"
 
@@ -38,5 +44,5 @@ module "storage" {
   source = "./modules/storage"
 
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.task_artifacts_sg.name
 }
