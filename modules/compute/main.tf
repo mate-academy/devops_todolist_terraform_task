@@ -49,6 +49,9 @@ resource "azurerm_virtual_machine_extension" "script" {
   type_handler_version = "2.1"
 
   settings = jsonencode({
-    commandToExecute = "bash install-app.sh"
-  })
+  fileUris = [
+    "https://raw.githubusercontent.com/Gosxa/devops_todolist_terraform_task/main/install-app.sh"
+  ],
+  commandToExecute = "bash install-app.sh"
+})
 }
