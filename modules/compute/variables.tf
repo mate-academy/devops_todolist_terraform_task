@@ -1,0 +1,9 @@
+variable "location" {}
+variable "resource_group_name" {}
+
+variable "vm_name" {}
+variable "vm_size" {}
+variable "ssh_key_public" {}
+
+variable "subnet_id" {}
+variable "public_ip_id" {}
