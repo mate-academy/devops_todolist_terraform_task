@@ -1,0 +1,12 @@
+variable "location" {}
+variable "resource_group_name" {}
+variable "virtual_network_name" {}
+variable "vnet_address_prefix" {}
+variable "subnet_name" {}
+variable "subnet_address_prefix" {}
+variable "network_security_group_name" {}
+variable "public_ip_address_name" {}
+variable "vm_name" {}
+variable "vm_size" {}
+variable "ssh_key_public" {}
+variable "dns_label" {}

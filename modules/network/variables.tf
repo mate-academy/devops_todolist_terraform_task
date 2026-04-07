@@ -1,0 +1,9 @@
+variable "rg_name" {}
+variable "location" {}
+variable "vnet_name" {}
+variable "address_prefix" {}
+variable "subnet_name" {}
+variable "subnet_prefix" {}
+variable "nsg_name" {}
+variable "pip_name" {}
+variable "dns_label" {}
