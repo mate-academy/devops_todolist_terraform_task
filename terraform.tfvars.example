@@ -1,0 +1,3 @@
+resource_group_name = "mate-azure-task-12"
+location            = "uksouth"
+ssh_key_public      = "your-public-key-content"
