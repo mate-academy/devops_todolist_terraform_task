@@ -23,7 +23,7 @@ variable "admin_username" {
   type        = string
 }
 
-variable "ssh_public_key" {
+variable "ssh_key_public" {
   description = "SSH public key used for VM authentication"
   type        = string
 }

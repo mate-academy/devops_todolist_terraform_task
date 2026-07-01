@@ -1,7 +1,7 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "tfstate-rg"
-    storage_account_name = "tfstate2426127369"
+    resource_group_name  = "mate-azure-task-12"
+    storage_account_name = "yourstorageaccount"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }

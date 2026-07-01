@@ -1,7 +1,7 @@
 variable "location" {
   description = "Azure region for all resources"
   type        = string
-  default     = "denmarkeast"
+  default     = "uksouth"
 }
 
 variable "resource_group_name" {
@@ -75,7 +75,7 @@ variable "storage_account_name" {
   type        = string
 }
 
-variable "ssh_public_key" {
+variable "ssh_key_public" {
   description = "Contents of the SSH public key for VM access"
   type        = string
 }

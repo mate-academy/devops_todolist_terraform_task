@@ -50,7 +50,7 @@ module "compute" {
   vm_name             = var.vm_name
   vm_size             = var.vm_size
   admin_username      = var.admin_username
-  ssh_public_key      = var.ssh_public_key
+  ssh_key_public      = var.ssh_key_public
   install_script_url  = var.install_script_url
 
   subnet_id    = module.network.subnet_id
