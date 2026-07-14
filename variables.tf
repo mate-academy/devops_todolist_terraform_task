@@ -1,0 +1,128 @@
+# COMMON VARIABLES
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+  default     = "mate-azure-task-12"
+}
+variable "resource_group_location" {
+  description = "Location of the resource group"
+  type        = string
+  default     = "uksouth"
+}
+#______________________________________________________________________________|
+
+# NETWORK's VARIABLES
+variable "virtual_network_name" {
+  description = "Name of the virtual network"
+  type        = string
+  default     = "vnet"
+}
+variable "vnet_address_prefix" {
+  description = "Virtual network address prefix"
+  type        = list(string)
+  default     = ["10.0.0.0/16"]
+}
+variable "subnet_name" {
+  description = "Name of the subnet"
+  type        = string
+  default     = "default"
+}
+
+variable "subnet_address_prefix" {
+  description = "Subnet address prefix"
+  type        = list(string)
+  default     = ["10.0.0.0/24"]
+}
+variable "public_ip_address_name" {
+  description = "Name of the puplic ip resource"
+  type        = string
+  default     = "linuxboxpip"
+}
+variable "dns_label" {
+  description = "DNS for service"
+  type        = string
+  default     = "matetask"
+}
+variable "network_security_group_name" {
+  description = "Name of Network Security Group"
+  type        = string
+  default     = "defaultnsg"
+}
+
+variable "security_rules" {
+  description = "List of security rules for the network security group"
+  type = list(object({
+    name                       = string
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+  default = [
+    {
+      name                       = "SSH"
+      priority                   = 100
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "22"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    {
+      name                       = "HTTP"
+      priority                   = 200
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "80"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    {
+      name                       = "HTTP-app"
+      priority                   = 300
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "8080"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  ]
+}
+#______________________________________________________________________________|
+
+# VIRTUAL MACHINE VARIABLES
+variable "vm_name" {
+  description = "Virtual Machine Name"
+  type        = string
+  default     = "matebox"
+}
+variable "vm_size" {
+  description = "Size of VM"
+  type        = string
+  default     = "Standard_B1s"
+}
+variable "ssh_key_public" {
+  type    = string
+  default = "your-public-key-content"
+}
+#______________________________________________________________________________|
+
+# STORAGE ACCOUNT AND CONTAINER VARIABLES
+variable "storage_account_name" {
+  type    = string
+  default = "yourstorageaccount"
+}
+variable "storage_account_name_for_artifacts" {
+  type    = string
+  default = "ands9prostorrage"
+}
