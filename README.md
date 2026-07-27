@@ -47,7 +47,7 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
 
 - The compute module will create a network interface, virtual machine, and VM extension for deploying the ToDo List application.
     * Network Interface: name it `${var.vm_name}-nic`.
-    * Virtual Machine: name it `matebox`, image `Ubuntu2204`, size `Standard_B1s`, SSH key `linuxboxsshkey`.
+    * Virtual Machine: name it `matebox`, image `Ubuntu2204`, size `Standard_D2s_v3`, SSH key `linuxboxsshkey`.
     * VM Extension: use the `CustomScript` extension to execute `install-app.sh` script.
 
 
@@ -68,7 +68,7 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
 
 **7. Use Modules in Main Configuration**
 - Define variables in `variables.tf` with the following parameters:
-    * location: `uksouth`.
+    * location: `polandcentral`.
     * resource_group_name: `mate-azure-task-12`.
     * virtual_network_name: `vnet`.
     * vnet_address_prefix: `10.0.0.0/16`.
@@ -77,7 +77,7 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
     * network_security_group_name: `defaultnsg`.
     * public_ip_address_name: `linuxboxpip`.
     * vm_name: `matebox`.
-    * vm_size: `Standard_B1s`.
+    * vm_size: `Standard_D2s_v3`.
     * ssh_key_public: `your-public-key-content`.
     * dns_label: `matetask` (you can append a random number in your script).
 
@@ -89,3 +89,174 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
 - Verify the application is running by visiting the public IP in a web browser.
 
 **10. Pull request's description should also contain a reference to a successful workflow run**
+
+# Infrastructure as Code with Azure & Terraform
+
+**Author:** Diana Horban
+**Repository:** https://github.com/dianahorban477-bot/devops_todolist_terraform_task
+
+This project provisions a modular Azure infrastructure using Terraform.
+
+##  Architecture
+
+- **Network (`modules/network`)**: Creates VNet, Subnet, NSG, and Public IP.
+- **Compute (`modules/compute`)**: Deploys Ubuntu 22.04 LTS VM with CustomScript extension.
+- **Storage (`modules/storage`)**: Provisions Storage Account and `task-artifacts` Container.
+
+##  Deployment Steps
+
+1. **Initialize Terraform Backend & Modules**:
+   ```bash
+   terraform init
+
+2. **Check Code Formatting & Validate Syntax**:
+   ```bash
+   terraform fmt -recursive
+   terraform validate
+
+3. **Preview Infrastructure Plan**:
+   ```bash
+   terraform plan
+
+4. **Apply Infrastructure Changes**:
+   ```bash
+   terraform apply -auto-approve
+
+## Troubleshooting & Lessons Learned
+
+* **Warning:** 'Argument is deprecated` in `modules/storage/main.tf`.
+* **Root Cause:** A deprecation warning regarding legacy attribute bindings led to a partial refactoring of modules/storage/main.tf.
+* **Fix:**  Updated the argument to match `azurerm` v3.x syntax:
+  ```hcl
+  storage_account_id = azurerm_storage_account.sa.name
+
+* **Issue:** `An argument named "storage_account_id" is not expected here` in `modules/storage/main.tf`.
+* **Root Cause:** Partial update during refactoring. The right-hand value was updated to `.name` based on IDE hints, but the argument name itself remained `storage_account_id`.
+* **Fix:** Fully updated the argument to match `azurerm` v3.x syntax:
+  ```hcl
+  storage_account_name = azurerm_storage_account.sa.name
+
+### Issue: `IPv4BasicSkuPublicIpCountLimitReached`
+
+When running `terraform apply`, you might encounter the following error in certain Azure regions or subscription types:
+
+> `IPv4BasicSkuPublicIpCountLimitReached: Cannot create more than 0 IPv4 Basic SKU public IP addresses for this subscription in this region.`
+
+**Cause:**
+Azure restricts the creation of Public IP addresses using the `Basic` SKU in certain subscriptions and enforces the use of the `Standard` SKU.
+
+**Solution:**
+In the network module (`modules/network/main.tf`), update the `azurerm_public_ip` resource configuration to use `Standard` SKU and `Static` allocation method:
+
+```hcl
+resource "azurerm_public_ip" "pip" {
+  name                = var.public_ip_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  domain_name_label   = var.dns_label_prefix
+}
+
+**Cause:**
+Azure restricts the creation of Public IP addresses using the `Basic` SKU in certain subscriptions and enforces the use of the `Standard` SKU.
+
+**Solution:**
+In the network module (`modules/network/main.tf`), update the `azurerm_public_ip` resource configuration to use `Standard` SKU and `Static` allocation method:
+
+```hcl
+resource "azurerm_public_ip" "pip" {
+  name                = var.public_ip_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  domain_name_label   = "${var.dns_label_prefix}-${random_integer.dns.result}"
+}
+
+**Cause:**
+Even if Network Security Group (NSG) rules are created, incoming traffic on ports 80 (HTTP) or 22 (SSH) will still be dropped if the NSG is not explicitly associated with the Subnet or Network Interface.
+
+**Solution:**
+In the network module (`modules/network/main.tf`), attach the NSG to the subnet using the `azurerm_subnet_network_security_group_association` resource:
+
+```hcl
+resource "azurerm_subnet_network_security_group_association" "nsg_assoc" {
+  subnet_id                 = azurerm_subnet.subnet.id
+  network_security_group_id = azurerm_network_security_group.defaultnsg.id
+}
+
+### Application Not Accessible After Deployment (Missing Web Server)
+**Cause:**
+The initial `azurerm_virtual_machine_extension` configuration only executed a simple bash command (`echo Hello World`), which did not install or start an actual HTTP web server process (like Nginx) listening on port 80.
+
+**Solution:**
+Updated the `commandToExecute` setting in `modules/compute/main.tf` to automatically install Nginx, start the service, and serve a custom index page upon VM provision:
+
+```hcl
+resource "azurerm_virtual_machine_extension" "custom_script" {
+  name                 = "install-app"
+  virtual_machine_id   = azurerm_linux_virtual_machine.vm.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.1"
+
+  settings = <<SETTINGS
+    {
+        "commandToExecute": "sudo apt-get update && sudo apt-get install -y nginx && echo '<h1>ToDo List App is running!</h1>' | sudo tee /var/www/html/index.html"
+    }
+SETTINGS
+}
+
+### Code Refactoring: DRY Principle with Dynamic Blocks in NSG
+**Issue / Code Smell:**
+The Network Security Group (`azurerm_network_security_group`) contained duplicate `security_rule` code blocks for HTTP and SSH, violating the DRY (Don't Repeat Yourself) principle.
+
+**Solution:**
+Refactored the NSG module using Terraform `locals` and `dynamic` blocks to streamline rules management:
+
+```hcl
+locals {
+  inbound_rules = [
+    { name = "AllowHTTP", priority = 100, port = "80" },
+    { name = "AllowSSH",  priority = 101, port = "22" }
+  ]
+}
+
+resource "azurerm_network_security_group" "defaultnsg" {
+  name                = var.nsg_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  dynamic "security_rule" {
+    for_each = local.inbound_rules
+    content {
+      name                       = security_rule.value.name
+      priority                   = security_rule.value.priority
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = security_rule.value.port
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    }
+  }
+}
+
+### CustomScript Refactoring: Externalizing Provisioning Script
+**Requirement:**
+Executing inline commands in Terraform configuration reduces script maintainability and violates modular architecture principles.
+
+**Solution:**
+Updated `modules/compute/main.tf` to download and execute the dedicated `install-app.sh` script from the Azure Blob Storage Container using `fileUris`:
+
+```hcl
+settings = <<SETTINGS
+    {
+        "fileUris": [
+            "https://${var.storage_account_name}.blob.core.windows.net/${var.storage_container_name}/install-app.sh"
+        ],
+        "commandToExecute": "bash install-app.sh"
+    }
+SETTINGS
