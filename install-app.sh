@@ -16,6 +16,9 @@ mkdir /app
 # git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
 cp -r devops_todolist_terraform_task/app/* /app
 
+# systemd execs start.sh directly, so it needs the executable bit set
+chmod +x /app/start.sh
+
 # create a service for the app via systemctl and start the app
 mv /app/todoapp.service /etc/systemd/system/
 systemctl daemon-reload
