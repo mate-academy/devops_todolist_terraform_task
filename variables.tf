@@ -3,11 +3,6 @@ variable "location" {
   default = "uksouth"
 }
 
-variable "app_location" {
-  type    = string
-  default = "denmarkeast"
-}
-
 variable "resource_group_name" {
   type    = string
   default = "mate-azure-task-12"

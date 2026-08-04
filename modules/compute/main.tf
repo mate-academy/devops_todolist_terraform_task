@@ -51,6 +51,6 @@ resource "azurerm_virtual_machine_extension" "install_app" {
   type_handler_version = "2.1"
 
   settings = jsonencode({
-    script = base64encode(file("${path.module}/../../../install-app.sh"))
+    script = base64encode(file("${path.module}/../../install-app.sh"))
   })
 }

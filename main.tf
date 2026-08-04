@@ -24,7 +24,7 @@ module "network" {
   source = "./modules/network"
 
   resource_group_name         = azurerm_resource_group.main.name
-  location                    = var.app_location
+  location                    = var.location
   virtual_network_name        = var.virtual_network_name
   vnet_address_prefix         = var.vnet_address_prefix
   subnet_name                 = var.subnet_name
@@ -38,7 +38,7 @@ module "compute" {
   source = "./modules/compute"
 
   resource_group_name = azurerm_resource_group.main.name
-  location            = var.app_location
+  location            = var.location
   vm_name             = var.vm_name
   vm_size             = var.vm_size
   ssh_key_public      = var.ssh_key_public
