@@ -1,0 +1,13 @@
+location                    = "southafricanorth"
+resource_group_name         = "mate-azure-task-12"
+virtual_network_name        = "vnet"
+vnet_address_prefix         = "10.0.0.0/16"
+subnet_name                 = "default"
+subnet_address_prefix       = "10.0.0.0/24"
+network_security_group_name = "defaultnsg"
+public_ip_address_name      = "linuxboxpip"
+vm_name                     = "matebox"
+vm_size                     = "Standard_B2ats_v2"
+dns_label                   = "matetask"
+
+ssh_key_public = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOH/7wsnA73mVShAE2nY/QrU8Nm6YHUYRDmWbfRgmAAxQMyHgRcUm5opKTsjXULbRA88GGi/YEHp+NBgInKelddmqyOrPGyZVHanVv4UOtl+p5mwTVZ+cqBcpVgV+egbdYATsoUICo7kUs8/HBdDVA7NZGt3k1Hqjqd2RJ+9BaFjoJPKoIlfsyrvraJikixWmfe7B8tc5pD9cqxiXlcrY3USvFWyJhS7jvVlG6ifWtemy4qwQIt8iI/5y9UtCE6MRzxO8dvJmzZXmQWF0Mr5ATFX9FFhMA+nLI22fJ3gA5LIdzZThkTXsa/XM4elT71kAHe4BTBVYbClmX/zG5hb5cmSx0MJTEdxPw4SmU2omunmrBkuwm9rCNMXKnVvYN1fOZTRhoEpJLeyLSAzrjWwUjZMCilDxu7NYzzclb+FR8efgoJN9wKtzVyNhu6z3xGU0FEyIuztiQKcenTLVp245UHtNrT3hK56MFRJQnqeePZzb9BtvaKl1oM+Hrly/45Q0= clem"
