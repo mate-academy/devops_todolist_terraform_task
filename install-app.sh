@@ -1,22 +1,36 @@
 #!/bin/bash
+set -euo pipefail
 
-# Script to silently install and start the todo web app on the virtual machine. 
-# Note that all commands bellow are without sudo - that's because extention mechanism 
-# runs scripts under root user. 
+# Script to silently install and start the todo web app on the virtual machine.
 
-# install system updates and isntall python3-pip package using apt. '-yq' flags are 
-# used to suppress any interactive prompts - we won't be able to confirm operation 
-# when running the script as VM extention.  
+# Получаем URL репозитория из аргумента (передаваемого из Terraform) или используем ваш по умолчанию
+REPO_URL="${1:-https://github.com/Clem97121/azure_task_12_deploy_app_with_vm_extention.git}"
+
+echo "Starting application installation from: $REPO_URL"
+
+# Добавляем git в список устанавливаемых пакетов
 apt-get update -yq
-apt-get install python3-pip -yq
+apt-get install python3-pip git -yq
 
-# Create a directory for the app and download the files. 
-mkdir /app 
-# make sure to uncomment the line bellow and update the link with your GitHub username
-# git clone https://github.com/<your-gh-username>/azure_task_12_deploy_app_with_vm_extention.git
-cp -r devops_todolist_terraform_task/app/* /app
+# Создаем директорию под приложение
+mkdir -p /app 
 
-# create a service for the app via systemctl and start the app
+# Удаляем временную папку на случай повторного запуска
+rm -rf /tmp/task_repo
+
+# Клонируем репозиторий во временную папку
+git clone "$REPO_URL" /tmp/task_repo
+
+# Проверяем, что папка приложения успешно скачалась
+if [ ! -d "/tmp/task_repo/app" ]; then
+    echo "Error: Cloned repository or 'app' directory does not exist!"
+    exit 1
+fi
+
+# Копируем файлы приложения в /app
+cp -r /tmp/task_repo/app/* /app/
+
+# Переносим и запускаем systemd сервис
 mv /app/todoapp.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl start todoapp
