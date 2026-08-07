@@ -48,7 +48,7 @@ resource "azurerm_virtual_machine_extension" "app_setup" {
 
   settings = <<SETTINGS
     {
-      "script": "${base64encode(file("${path.cwd}/install-app.sh"))}"
+      "commandToExecute": "bash install-app.sh https://github.com/your-username/your-repo.git"
     }
   SETTINGS
 }
