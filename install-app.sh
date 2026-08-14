@@ -8,7 +8,7 @@
 # used to suppress any interactive prompts - we won't be able to confirm operation 
 # when running the script as VM extention.  
 apt-get update -yq
-apt-get install python3-pip -yq
+apt-get install git python3-pip -yq
 
 # Create a directory for the app and download the files. 
 mkdir /app 
