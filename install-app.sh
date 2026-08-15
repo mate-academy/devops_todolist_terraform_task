@@ -14,6 +14,8 @@ apt-get install git python3-pip -yq
 mkdir /app 
 git clone https://github.com/1ntact/devops_todolist_terraform_task.git
 cp -r devops_todolist_terraform_task/app/* /app
+chmod +x /app/start.sh
+mv /app/todoapp.service /etc/systemd/system/
 
 # create a service for the app via systemctl and start the app
 mv /app/todoapp.service /etc/systemd/system/
