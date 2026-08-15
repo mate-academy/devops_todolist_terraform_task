@@ -23,11 +23,11 @@ module "network" {
   location            = azurerm_resource_group.rg.location
 
   virtual_network_name = var.virtual_network_name
-  vnet_address_prefix  = [var.vnet_address_prefix]
+  vnet_address_prefix  = var.vnet_address_prefix
   dns_servers          = var.dns_servers
 
   subnet_name           = var.subnet_name
-  subnet_address_prefix = [var.subnet_address_prefix]
+  subnet_address_prefix = var.subnet_address_prefix
 
   network_security_group_name = var.network_security_group_name
   public_ip_address_name      = var.public_ip_address_name

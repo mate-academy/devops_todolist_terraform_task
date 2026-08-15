@@ -30,7 +30,8 @@ variable "subnet_address_prefix" {
 
 variable "dns_servers" {
   type        = list(string)
-  description = "List of DNS servers for the virtual network"
+  description = "Custom DNS servers for the virtual network"
+  default     = []
 }
 
 variable "network_security_group_name" {

@@ -6,10 +6,10 @@ location            = "denmarkeast"
 resource_group_name = "mate-azure-task-12"
 
 virtual_network_name = "vnet"
-vnet_address_prefix  = "10.0.0.0/16"
+vnet_address_prefix  = ["10.0.0.0/16"]
 
 subnet_name           = "default"
-subnet_address_prefix = "10.0.0.0/24"
+subnet_address_prefix = ["10.0.0.0/24"]
 
 dns_servers = []
 
