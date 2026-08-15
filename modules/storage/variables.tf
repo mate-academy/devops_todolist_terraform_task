@@ -1,11 +1,11 @@
 variable "subnet_id" {
-    type        = string
-    description = "ID of the subnet"
+  type        = string
+  description = "ID of the subnet"
 }
 
 variable "storage_account_name" {
-    type        = string
-    description = "Name of the storage account"
+  type        = string
+  description = "Name of the storage account"
 }
 
 variable "location" {
