@@ -14,8 +14,8 @@ variable "location" {
 }
 
 variable "subnet_name" {
-    type        = string
-    description = "Name of the first subnet"
+  type        = string
+  description = "Name of the first subnet"
 }
 
 variable "vnet_address_prefix" {
