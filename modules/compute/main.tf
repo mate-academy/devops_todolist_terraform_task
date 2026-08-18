@@ -11,6 +11,13 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
+resource "azurerm_ssh_public_key" "main" {
+  name                = var.ssh_key_public_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  public_key          = var.ssh_key
+}
+
 resource "azurerm_linux_virtual_machine" "main" {
   name                = var.vm_name
   location            = var.location
@@ -24,7 +31,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = var.ssh_key
+    public_key = azurerm_ssh_public_key.main.public_key
   }
 
   os_disk {

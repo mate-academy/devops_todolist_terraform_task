@@ -38,6 +38,10 @@ variable "ssh_key" {
   type        = string
 }
 
+variable "ssh_key_public_name" {
+  type = string
+}
+
 variable "install_script_path" {
   description = "Path to the install-app.sh script"
   type        = string

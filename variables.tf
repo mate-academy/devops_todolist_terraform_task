@@ -42,6 +42,10 @@ variable "ssh_key_public" {
   type = string
 }
 
+variable "ssh_key_public_name" {
+  type = string
+}
+
 variable "dns_label" {
   type = string
 }

@@ -36,5 +36,6 @@ module "compute" {
   subnet_id            = module.network.subnet_id
   public_ip_address_id = module.network.public_ip_id
   ssh_key              = var.ssh_key_public
+  ssh_key_public_name  = var.ssh_key_public_name
   admin_username       = "matebox"
 }
