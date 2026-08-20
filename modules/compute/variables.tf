@@ -30,3 +30,7 @@ variable "ssh_key_public" {
   type      = string
   sensitive = true
 }
+variable "repo_url" {
+  type    = string
+  default = "https://github.com/ll221/devops_todolist_terraform_task.git"
+}
