@@ -26,7 +26,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name = var.resource_group_name
   size                = var.vm_size
 
-  admin_username = "azureuser"
+  admin_username                  = "azureuser"
   disable_password_authentication = true
 
   admin_ssh_key {
