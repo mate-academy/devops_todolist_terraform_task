@@ -1,0 +1,5 @@
+.terraform/
+ssh/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
