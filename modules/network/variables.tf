@@ -1,17 +1,17 @@
 variable "azurerm_virtual_network_name" {
-  default     = "vnet"
+  default = "vnet"
 }
 
 variable "subnet_name" {
-  default     = "default"
+  default = "default"
 }
 
 variable "network_security_group_name" {
-  default     = "defaultnsg"
+  default = "defaultnsg"
 }
 
 variable "public_ip_name" {
-  default     = "linuxboxpip"
+  default = "linuxboxpip"
 }
 
 variable "dns_label" {

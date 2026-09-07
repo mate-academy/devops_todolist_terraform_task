@@ -1,5 +1,5 @@
 output "vm_id" {
-  value = azurerm_virtual_machine.main.id
+  value = azurerm_linux_virtual_machine.main.id
 }
 
 output "network_interface_id" {

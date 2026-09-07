@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "example" {
 
 resource "azurerm_storage_container" "example" {
   name                  = var.storage_container_name
-  storage_account_name = azurerm_storage_account.example.name
+  storage_account_name  = azurerm_storage_account.example.name
   container_access_type = "private"
 }
 
@@ -31,8 +31,8 @@ resource "azurerm_storage_blob" "install_app" {
 
 data "azurerm_storage_account_blob_container_sas" "install_app" {
   connection_string = azurerm_storage_account.example.primary_connection_string
-  container_name     = azurerm_storage_container.example.name
-  https_only         = true
+  container_name    = azurerm_storage_container.example.name
+  https_only        = true
 
   start  = "2026-09-06T00:00:00Z"
   expiry = "2027-09-06T00:00:00Z"

@@ -1,9 +1,9 @@
 variable "storage_account_name" {
-  default     = "todoappstorage12345"
+  default = "todoappstorage12345"
 }
 
 variable "storage_container_name" {
-  default     = "task-artifacts"
+  default = "task-artifacts"
 }
 
 variable "resource_group_name" {
