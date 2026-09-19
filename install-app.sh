@@ -16,8 +16,8 @@ git clone https://github.com/Petliuk/devops_todolist_terraform_task.git
 chmod +x devops_todolist_terraform_task/app/start.sh
 cp -r devops_todolist_terraform_task/app/* /app
 
-# create a service for the app via systemctl and start the app
-mv /app/todoapp.service /etc/systemd/system/
+# Install the systemd unit shipped with the app (app/todoapp.service).
+cp /app/todoapp.service /etc/systemd/system/todoapp.service
 systemctl daemon-reload
 systemctl start todoapp
 systemctl enable todoapp

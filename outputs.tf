@@ -5,7 +5,7 @@ output "resource_group_name" {
 
 output "public_ip_address" {
   description = "Public IP address of the virtual machine."
-  value       = module.network.public_ip_address
+  value       = module.compute.public_ip_address
 }
 
 output "public_ip_fqdn" {
