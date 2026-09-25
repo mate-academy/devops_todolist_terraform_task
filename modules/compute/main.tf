@@ -54,7 +54,8 @@ resource "azurerm_virtual_machine_extension" "this" {
   type_handler_version = "2.1"
 
   settings = jsonencode({
-    script = filebase64("${path.root}/install-app.sh")
+    fileUris         = ["https://yourstorageaccount.blob.core.windows.net/scripts/install-app.sh"]
+    commandToExecute = "bash install-app.sh"
   })
 
 }
