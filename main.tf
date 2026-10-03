@@ -11,11 +11,15 @@ provider "azurerm" {
   features {}
 }
 
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
+}
 
 module "network" {
   source = "./modules/network"
 
-  resource_group_name         = var.resource_group_name
+  resource_group_name         = azurerm_resource_group.rg.name
   location                    = var.location
   virtual_network_name        = var.virtual_network_name
   vnet_address_prefix         = var.vnet_address_prefix
@@ -29,7 +33,7 @@ module "network" {
 module "compute" {
   source = "./modules/compute"
 
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   subnet_id           = module.network.subnet_id
   public_ip_id        = module.network.public_ip_id
@@ -42,6 +46,6 @@ module "compute" {
 module "storage" {
   source = "./modules/storage"
 
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
 }
