@@ -68,7 +68,7 @@ To complete this task, Terraform and Azure CLI must be installed and configured 
 
 **7. Use Modules in Main Configuration**
 - Define variables in `variables.tf` with the following parameters:
-    * location: `uksouth`.
+    * location: any region that is available in your Azure subscription, for example `westus2`.
     * resource_group_name: `mate-azure-task-12`.
     * virtual_network_name: `vnet`.
     * vnet_address_prefix: `10.0.0.0/16`.
