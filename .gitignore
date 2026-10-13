@@ -1,0 +1,58 @@
+.terraform/
+
+# state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# plans
+*.tfplan
+tfplan
+
+# secrets
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# logs
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+
+# ==============================================================================
+# 2. Security & keys
+# ==============================================================================
+# Приватні та публічні SSH-ключі, сертифікати
+*.pem
+*.key
+id_rsa*
+*.pub
+
+# Файли змінних середовища із секретами
+.env
+.env.*
+
+# ==============================================================================
+# 3. PYTHON / DJANGO
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+venv/
+.venv/
+
+# ==============================================================================
+# 4. (OS & IDE)
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
